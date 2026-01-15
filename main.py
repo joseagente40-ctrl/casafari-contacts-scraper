@@ -24,7 +24,7 @@ app = Flask(__name__)
 CORS(app)
 
 # ScraperAPI configuration
-SCRAPER_API_KEY = '7976a485c58e38d0a3e1a41fe59c7da6'
+SCRAPER_API_KEY = os.environ.get('SCRAPER_API_KEY', '')
 SCRAPER_API_URL = 'http://api.scraperapi.com'
 
 # Diccionario de ciudades disponibles para scraping en Casafari
@@ -210,7 +210,7 @@ def health_check():
         'service': 'Casafari Contacts Scraper API with ScraperAPI'
     }), 200
 
-@app.route('/api/contacts/ity>', methods=['GET'])
+@app.route('/api/contacts/<city>', methods=['GET'])
 def get_contacts(city='madrid'):
     try:
         city = city.lower()
